@@ -1,6 +1,14 @@
-FROM mcr.microsoft.com/windows/servercore:ltsc2022
+FROM mcr.microsoft.com/windows/servercore:ltsc2022-KB5087545
 ARG INSTALL_JDK=true
 ARG INSTALL_CERT=true
+
+# Install latest curl/web components
+RUN powershell -Command \
+    Add-WindowsFeature NET-Framework-Core; \
+    $ProgressPreference = 'SilentlyContinue'; \
+    Invoke-WebRequest -Uri 'https://curl.se/download/curl-latest.zip' -OutFile 'curl.zip'; \
+    Expand-Archive 'curl.zip' -DestinationPath 'C:\curl'; \
+    Remove-Item 'curl.zip'
 
 # Download the latest self-hosted integration runtime installer into the SHIR folder
 COPY SHIR C:/SHIR/
