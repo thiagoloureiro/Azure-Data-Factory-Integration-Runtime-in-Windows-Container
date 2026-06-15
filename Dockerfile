@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/windows/servercore:ltsc2022-KB5087545
+FROM mcr.microsoft.com/windows/servercore:ltsc2022-KB5094128
 ARG INSTALL_JDK=true
 ARG INSTALL_CERT=true
 
